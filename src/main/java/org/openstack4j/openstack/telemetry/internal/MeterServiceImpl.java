@@ -38,6 +38,12 @@ public class MeterServiceImpl extends BaseTelemetryServices implements MeterServ
 		CeilometerSample[] samples = get(CeilometerSample[].class, uri("/meters/%s", meterName)).execute();
 		return wrapList(samples);
 	}
+	
+	public List<? extends Sample> samples(String meterName, String name, String value) {
+		checkNotNull(meterName);
+		CeilometerSample[] samples = get(CeilometerSample[].class, uri("meters/%s", meterName)).param(name, value).execute();
+		return wrapList(samples);
+	}
 
 	/**
 	 * {@inheritDoc}
